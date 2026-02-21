@@ -1,0 +1,33 @@
+def calculate_monthly_emi(principal: float, annual_interest_rate: float, tenure_years: int) -> float:
+    """
+    Calculate monthly EMI for a loan.
+    
+    Args:
+        principal: Loan amount in currency units
+        annual_interest_rate: Annual interest rate as a percentage (e.g., 5 for 5%)
+        tenure_years: Loan tenure in years
+    
+    Returns:
+        Monthly EMI amount rounded to 1 decimal place
+    """
+    monthly_interest_rate = annual_interest_rate / 1200
+    total_months = tenure_years * 12
+    
+    if monthly_interest_rate == 0:
+        return round(principal / total_months, 1)
+    
+    power_factor = (1 + monthly_interest_rate) ** total_months
+    emi = principal * monthly_interest_rate * power_factor / (power_factor - 1)
+    
+    return round(emi, 1)
+
+
+# Example usage
+if __name__ == "__main__":
+    principal = 500000
+    annual_rate = 8.5
+    tenure = 5
+    
+    emi = calculate_monthly_emi(principal, annual_rate, tenure)
+    print(f"Monthly EMI: ₹{emi}")
+
